@@ -1,0 +1,21 @@
+services:
+  nextjs:
+    # ビルド設定
+    build: 
+      context: ./nextjs  # Dockerfileが置かれているディレクトリを指定
+    
+    # ポートマッピング
+    ports:
+      - "3000:3000"  # ホストの3000番ポートをコンテナの3000番ポートにマッピング
+    
+    # ボリューム設定
+    volumes:
+      - ./nextjs:/nextjs  # ホストのnextjsディレクトリをコンテナの/nextjsにマウント
+      - /nextjs/node_modules  # コンテナ内のnode_modulesディレクトリを保持（ホストのnode_modulesと競合しないように）
+    
+    # コンテナ起動時に実行するコマンド
+    command: npm run dev  # Next.jsの開発サーバーを起動
+    
+    # 環境変数の設定
+    environment:
+      - NODE_ENV=development  # Node.jsの環境を開発モードに設定
